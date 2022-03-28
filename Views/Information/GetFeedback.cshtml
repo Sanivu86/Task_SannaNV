@@ -1,0 +1,88 @@
+﻿@*
+    @author Sanna Nieminen-Vuorio
+     Last modified 2.3.2022
+     Feedback form
+*@
+@model RiihiTask_SannaNV.Models.Info
+
+@{
+    ViewBag.Title = "GetFeedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body class="backroundClass">
+
+
+    <h3>Anna palautetta:</h3>
+
+    <div style="width: 50%">
+        Täällä voit antaa risuja ja ruusuja. <br />
+        Jos haluat palautteesi näkyvän Asiakaspalautteet-sivulla, valitse Näytä palaute asiakaspalautteissa. <br />
+        Asiakkaiden henkilöllisyyden suojaamiseksi, vain etunimi näytetään palautteen yhteydessä.
+    </div>
+    <br />
+
+
+        <form id="FeedbackForm">
+            <div>
+                @Html.TextBoxFor(info => info.Name, new { @class = "form-control", placeholder = "Etunimi" })
+            </div>
+            <br />
+            <div>
+                @Html.TextBoxFor(info => info.SurName, new { @class = "form-control", placeholder = "Sukunimi" })
+            </div>
+            <br>
+            <div>
+                @Html.TextBoxFor(info => info.Email, new { @class = "form-control", placeholder = "Email" })
+            </div>
+            <br>
+            <div>
+                @Html.TextAreaFor(info => info.Message, new { @class = "form-control", placeholder = "Palaute" })
+            </div>
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(info => info.Permission)
+                    Näytä palaute asiakaspalautteissa
+                </label>
+            </div>
+
+            <br />
+            <input class="bnt-success" type="reset" value="Lähetä" id="btnSubmit" />
+
+        </form>
+
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#btnSubmit").click(function () {
+                debugger
+                $("#loaderDiv").show();
+
+                var data = $("#FeedbackForm").serialize();
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Information/GetFeedback",
+                    data: data,
+                    success: function (response) {
+                        $("#loaderDiv").hide();
+                        alert("Kiitos palautteestasi!");
+                    }
+
+                })
+            })
+
+        })
+    </script>
+
+
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+
+</body>
+

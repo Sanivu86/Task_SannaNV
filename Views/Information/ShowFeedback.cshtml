@@ -1,0 +1,44 @@
+﻿@*
+    @author Sanna Nieminen-Vuorio
+    Last modified 2.3.2022
+    Show all the feedback that has given permission
+*@
+@model IEnumerable<RiihiTask_SannaNV.Models.Info>
+
+@{
+    ViewBag.Title = "ShowFeedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body class="backroundClass">
+    <h3>Asiakaspalautteita:</h3>
+
+    <div style="width:50%; margin-top: 2%">
+
+        @if (Model != null)
+        {
+            <table class="table table-striped">
+                <tr>
+                    <th> Nimi: </th>
+                    <th> Palaute: </th>
+                </tr>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td> @item.Name</td>
+                            <td> @item.Message</td>
+                        </tr>
+                    }
+
+                    <tr></tr>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <b> Ei asiakaspalautteita </b>
+        }
+    </div>
+</body>
+
